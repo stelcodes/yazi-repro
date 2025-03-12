@@ -1,0 +1,8 @@
+## keymap.toml ################################################################
+
+## Start plugin located at ./plugins/repro.yazi/main.lua
+#
+# [[manager.prepend_keymap]]
+# desc = "Start repro"
+# on = ";"
+# run = "plugin repro"
