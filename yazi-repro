@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 #/* vim: set filetype=bash : */
 
+set -eou pipefail
+
 pwd="$(pwd)"
 bin="$pwd/bin"
 red="\033[31;1m"
@@ -9,18 +11,23 @@ log="$HOME/.local/state/yazi/yazi.log"
 
 if ! [ -f "$bin/yazi" -a -x "$bin/yazi" -a -f "$bin/ya" -a -x "$bin/ya" ]; then
   printf "%bERROR%b: Missing nightly yazi and ya executables\n" "$red" "$reset" >&2
-  printf "Download, extract, and place binaries into $(pwd)/bin\n" >&2
+  printf "Download, extract, and place binaries into %s\n" "$bin" >&2
   printf "Please visit https://github.com/sxyazi/yazi/releases/tag/nightly\n" >&2
   exit 1
 fi
 
+rm "$log"
+
 env "YAZI_CONFIG_HOME=$pwd" "YAZI_LOG=debug" "PATH=$bin:$PATH" ./bin/yazi "$@"
 
-printf "Log file: %s" "$log"
-if command -v bat &> /dev/null; then
-  bat "$log"
-elif command -v less &> /dev/null; then
-  less "$log"
-else
-  cat "$log"
+# If log file is not empty and we're printing to an interactive terminal
+if [ -s "$log" -a -t 1 ]; then
+  printf "Log file: %s\n" "$log"
+  if command -v bat &> /dev/null; then
+    bat "$log"
+  elif command -v less &> /dev/null; then
+    less "$log"
+  elif command -v more &> /dev/null; then
+    more "$log"
+  fi
 fi
