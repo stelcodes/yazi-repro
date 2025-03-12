@@ -1,6 +1,6 @@
-# Minimal Reproduction Yazi Config
+# Minimal Reproduction Yazi Template
 
-Welcome to my convienent setup for tinkering with the [Yazi](https://yazi-rs.github.io/) terminal file manager.
+Convienent boilerplate for debugging the [Yazi](https://yazi-rs.github.io/) terminal file manager.
 
 ## Setup
 
@@ -10,7 +10,7 @@ Note: Both the nightly `yazi` and `ya` executables are required.
 
 ## Configuration
 
-Edit the config files in this directory and `plugin/repro.yazi`.
+Edit the config files in this directory and `plugins/repro.yazi`.
 
 ## Running Yazi
 
@@ -26,3 +26,4 @@ This script will start the nightly `yazi` in debug mode, ensure the nightly `ya`
 
 *Happy debugging! >.<'*
 
+<img width="500" alt="cute girl sips tea with laptop" src="https://i.imgur.com/YB6UH14.png"/>
