@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#/* vim: set filetype=bash : */
+
+pwd="$(pwd)"
+bin="$pwd/bin"
+red="\033[31;1m"
+reset="\033[0m"
+log="$HOME/.local/state/yazi/yazi.log"
+
+if ! [ -f "$bin/yazi" -a -x "$bin/yazi" -a -f "$bin/ya" -a -x "$bin/ya" ]; then
+  printf "%bERROR%b: Missing nightly yazi and ya executables\n" "$red" "$reset" >&2
+  printf "Download, extract, and place binaries into $(pwd)/bin\n" >&2
+  printf "Please visit https://github.com/sxyazi/yazi/releases/tag/nightly\n" >&2
+  exit 1
+fi
+
+env "YAZI_CONFIG_HOME=$pwd" "YAZI_LOG=debug" "PATH=$bin:$PATH" ./bin/yazi "$@"
+
+"$PAGER" "$log"
+# bat ~/.local/state/yazi/yazi.log || cat ~/.local/state/yazi/yazi.log
