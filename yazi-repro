@@ -16,5 +16,11 @@ fi
 
 env "YAZI_CONFIG_HOME=$pwd" "YAZI_LOG=debug" "PATH=$bin:$PATH" ./bin/yazi "$@"
 
-"$PAGER" "$log"
-# bat ~/.local/state/yazi/yazi.log || cat ~/.local/state/yazi/yazi.log
+printf "Log file: %s" "$log"
+if command -v bat &> /dev/null; then
+  bat "$log"
+elif command -v less &> /dev/null; then
+  less "$log"
+else
+  cat "$log"
+fi
